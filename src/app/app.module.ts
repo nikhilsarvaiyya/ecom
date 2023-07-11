@@ -10,8 +10,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { JwtInterceptor, ErrorInterceptor, appInitializer } from './_helpers';
 import { AccountService } from './_services';
 import { AppComponent } from './app.component';
-import { AlertComponent } from './_components';
+import { AlertComponent,PageNotFoundComponent } from './_components';
 import { HomeComponent } from './home';
+import { LandingPageComponent } from './layout/landing-page/landing-page.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { AvatarComponent } from './_components/avatar/avatar.component';
+
 
 @NgModule({
     imports: [
@@ -23,7 +27,11 @@ import { HomeComponent } from './home';
     declarations: [
         AppComponent,
         AlertComponent,
-        HomeComponent
+        HomeComponent,
+        LandingPageComponent,
+        HeaderComponent,
+        PageNotFoundComponent,
+        AvatarComponent
     ],
     providers: [
         { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },
