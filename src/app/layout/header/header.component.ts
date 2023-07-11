@@ -10,7 +10,7 @@ import { Account, Role } from '../../_models';
 })
 export class HeaderComponent {
 
-  Role = Role;
+    Role = Role;
     account?: Account | null;
 
     constructor(private accountService: AccountService) {

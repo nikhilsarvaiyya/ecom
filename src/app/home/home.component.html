@@ -1,7 +1,42 @@
-﻿<div class="container-fluid pt-3" >
-    <!-- <div class="container">
+﻿<div class="row p-3">
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let item of product">
+        <div class="card border mb-4">
+            <div class="card">
+                <div style="height:150px; display: block;">
+                    <div *ngIf="item?.image?.length !== 1 instanceof Array; else imgArr">
+                        <ngb-carousel [showNavigationArrows]="true" [showNavigationIndicators]="true"   >
+                            <ng-template ngbSlide *ngFor="let img of item.image">
+                                <img height="150" style="display: block;background: url('../assets/img/no-image.png') no-repeat center center" [src]="img"  />
+                            </ng-template>
+                        </ngb-carousel>
+                    </div>
+                    <ng-template #imgArr>
+                        <img height="150" style="display: block;background: url('../assets/img/no-image.png') no-repeat center center" [src]="item.image"  />
+                    </ng-template>
+                </div>
+                
+                
+                <!--  -->
+                <div class="card-body">
+                    <h5 class="card-title">{{item.name}}</h5>
+                    <span>{{item.rating}}* rating</span><br />
+                    <span>
+                        <b class="me-3">{{item.price}}</b>
+                        <span class="me-3" style="text-decoration:line-through;  color:gray;">
+                            {{item.price - 10}}
+                        </span>
+                        <span class="me-3">17% off</span><br />
+                        <span class="me-3" style="color:gray">Size : L, XL, XXL</span><br />
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="container-fluid pt-3" >
+    <div class="container">
         <h1>Hi {{account?.firstName}}!</h1>
         <p>You're logged in with Angular 15 & JWT!!</p>
-    </div> -->
+    </div> 
     Home Page
-</div>
+</div> -->

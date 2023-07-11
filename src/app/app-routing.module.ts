@@ -10,15 +10,17 @@ const accountModule = () => import('./account/account.module').then(x => x.Accou
 const adminModule = () => import('./admin/admin.module').then(x => x.AdminModule);
 const profileModule = () => import('./profile/profile.module').then(x => x.ProfileModule);
 
+
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'account', loadChildren: accountModule },
     { path: 'profile', loadChildren: profileModule, canActivate: [AuthGuard] },
     { path: 'admin', loadChildren: adminModule, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
 
+
     // otherwise redirect to home
     { path: '**', redirectTo:''  }
-    // { path: '**', component:PageNotFoundComponent,  }
+     //{ path: '**', component:PageNotFoundComponent,  }
     
 ];
 

@@ -1,8 +1,9 @@
-﻿import { NgModule, APP_INITIALIZER } from '@angular/core';
+﻿
+import { NgModule,NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA,APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers';
 
@@ -14,7 +15,8 @@ import { AlertComponent,PageNotFoundComponent } from './_components';
 import { HomeComponent } from './home';
 import { LandingPageComponent } from './layout/landing-page/landing-page.component';
 import { HeaderComponent } from './layout/header/header.component';
-import { AvatarComponent } from './_components/avatar/avatar.component';
+import { AvatarComponent } from './_components/avatar/avatar.component';;
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import { AvatarComponent } from './_components/avatar/avatar.component';
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
-        AppRoutingModule
+        AppRoutingModule,
+        NgbModule
     ],
     declarations: [
         AppComponent,
@@ -41,6 +44,10 @@ import { AvatarComponent } from './_components/avatar/avatar.component';
         // provider used to create fake backend
         // fakeBackendProvider
     ],
+    schemas: [
+        CUSTOM_ELEMENTS_SCHEMA,
+        NO_ERRORS_SCHEMA
+      ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

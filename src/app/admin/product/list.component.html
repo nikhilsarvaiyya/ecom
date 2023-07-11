@@ -1,0 +1,34 @@
+﻿<h1>Products</h1>
+<p>All Product from secure (admin only) api end point:</p>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Create Product</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width:30%">Image</th>
+            <th style="width:30%">Name</th>
+            <th style="width:30%">Price</th>
+            <th style="width:10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of products">
+            <td class="align-middle">
+                <img [src]="product.image" height="30" />
+            </td>
+            <td class="align-middle">{{product.name}}</td>
+            <td class="align-middle">{{product.price}}</td>
+            <td style="white-space: nowrap">
+                <!-- <a routerLink="edit/{{account.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
+                <button (click)="deleteAccount(account.id)" class="btn btn-sm btn-danger btn-delete-account" [disabled]="account.isDeleting">
+                    <span *ngIf="account.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!account.isDeleting">Delete</span>
+                </button> -->
+            </td>
+        </tr>
+        <tr *ngIf="!products">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
