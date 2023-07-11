@@ -16,17 +16,29 @@
                 </div>
                 
                 
-                <!--  -->
+                
                 <div class="card-body">
                     <h5 class="card-title">{{item.name}}</h5>
-                    <span>{{item.rating}}* rating</span><br />
+                    <!-- <span>{{item.rating}}* rating</span><br /> -->
                     <span>
-                        <b class="me-3">{{item.price}}</b>
-                        <span class="me-3" style="text-decoration:line-through;  color:gray;">
-                            {{item.price - 10}}
+                        <b class="me-2"><i class="bi bi-currency-rupee"></i>{{item.price  - 10}}</b>
+                        <span class="me-3" style="text-decoration:line-through;  color:gray; font-size: 12px;">
+                            <i class="bi bi-currency-rupee"></i> {{item.price}}
                         </span>
-                        <span class="me-3">17% off</span><br />
+                        <span class="me-3">17<i class="bi bi-percent"></i> off</span><br />
                         <span class="me-3" style="color:gray">Size : L, XL, XXL</span><br />
+                        <span class="me-3" style="color:gray">Color : 
+                            <ul class="p-0" 
+                                style="list-style: none; display: inline; margin:10px 0 0 10px" >
+                                <li class="rounded-circle " 
+                                [style]="{
+                                    background: c,
+                                    display: 'inline-block', width:'14px', height:'14px',border:'1px solid #333',
+                                    margin:'0 0 0 -4px'
+                                  }"
+                                   *ngFor="let c of color"></li>
+                            </ul>
+                        </span><br />
                     </span>
                 </div>
             </div>

@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AccountService, AlertService } from '@app/_services';
+import { AccountService, AlertService, ProductService } from '@app/_services';
 import { MustMatch } from '@app/_helpers';
 
 @Component({ templateUrl: 'add-edit.component.html' })
@@ -20,6 +20,7 @@ export class AddEditComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private accountService: AccountService,
+        private productService: ProductService,
         private alertService: AlertService
     ) { }
 
@@ -27,16 +28,9 @@ export class AddEditComponent implements OnInit {
         this.id = this.route.snapshot.params['id'];
 
         this.form = this.formBuilder.group({
-            title: ['', Validators.required],
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            email: ['', [Validators.required, Validators.email]],
-            role: ['', Validators.required],
-            // password only required in add mode
-            password: ['', [Validators.minLength(6), ...(!this.id ? [Validators.required] : [])]],
-            confirmPassword: ['']
-        }, {
-            validator: MustMatch('password', 'confirmPassword')
+            name: ['', Validators.required],
+            price: ['', Validators.required],
+            description: ['', Validators.required],
         });
 
         this.title = 'Create Product';
@@ -44,7 +38,7 @@ export class AddEditComponent implements OnInit {
             // edit mode
             this.title = 'Edit Product';
             this.loading = true;
-            this.accountService.getById(this.id)
+            this.productService.getById(this.id)
                 .pipe(first())
                 .subscribe(x => {
                     this.form.patchValue(x);
@@ -70,22 +64,22 @@ export class AddEditComponent implements OnInit {
         this.submitting = true;
 
         // create or update account based on id param
-        let saveAccount;
+        let saveProduct;
         let message: string;
         if (this.id) {
-            saveAccount = () => this.accountService.update(this.id!, this.form.value);
+            saveProduct = () => this.productService.update(this.id!, this.form.value);
             message = 'Product updated';
         } else {
-            saveAccount = () => this.accountService.create(this.form.value);
+            saveProduct = () => this.productService.create(this.form.value);
             message = 'Product created';
         }
 
-        saveAccount()
+        saveProduct()
             .pipe(first())
             .subscribe({
                 next: () => {
                     this.alertService.success(message, { keepAfterRouteChange: true });
-                    this.router.navigateByUrl('/admin/accounts');
+                    this.router.navigateByUrl('/admin/products');
                 },
                 error: error => {
                     this.alertService.error(error);
@@ -94,3 +88,5 @@ export class AddEditComponent implements OnInit {
             });
     }
 }
+
+

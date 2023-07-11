@@ -5,7 +5,8 @@ import { ProductService } from '@app/_services';
 
 @Component({ templateUrl: 'home.component.html' })
 export class HomeComponent {
-    list = [1,2,3,4,5,6,7,8,9,0];
+    
+    color = ["#a946ec","#193a18","#4537f8","#daf185","#980b06"]
     product : any[] = []
     account = this.accountService.accountValue;
     pic : any
@@ -21,7 +22,5 @@ export class HomeComponent {
             .subscribe(products => this.product = products );
     }
 
-    setDefaultPic() {
-        this.pic = "/assets/img/no-image.png";
-    }
+   
 }

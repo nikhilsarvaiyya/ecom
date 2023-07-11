@@ -13,16 +13,16 @@
     <tbody>
         <tr *ngFor="let product of products">
             <td class="align-middle">
-                <img [src]="product.image" height="30" />
+                <img [src]="product.image[0] || noImage" height="30" />
             </td>
             <td class="align-middle">{{product.name}}</td>
             <td class="align-middle">{{product.price}}</td>
             <td style="white-space: nowrap">
-                <!-- <a routerLink="edit/{{account.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
-                <button (click)="deleteAccount(account.id)" class="btn btn-sm btn-danger btn-delete-account" [disabled]="account.isDeleting">
-                    <span *ngIf="account.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!account.isDeleting">Delete</span>
-                </button> -->
+                <a routerLink="edit/{{product.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
+                <button (click)="deleteProduct(product.id)" class="btn btn-sm btn-danger btn-delete-product" [disabled]="product.isDeleting">
+                    <span *ngIf="product.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!product.isDeleting">Delete</span>
+                </button>
             </td>
         </tr>
         <tr *ngIf="!products">
