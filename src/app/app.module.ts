@@ -16,7 +16,10 @@ import { HomeComponent } from './home';
 import { LandingPageComponent } from './layout/landing-page/landing-page.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { AvatarComponent } from './_components/avatar/avatar.component';;
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UniqueWordFromArrayPipe } from './_pipe/unique-word-from-array.pipe';
+import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
+import { ProductComponent } from './pages/product/product.component'
 
 
 @NgModule({
@@ -34,7 +37,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
         LandingPageComponent,
         HeaderComponent,
         PageNotFoundComponent,
-        AvatarComponent
+        AvatarComponent,
+        UniqueWordFromArrayPipe,
+        ProductDetailComponent,
+        ProductComponent
     ],
     providers: [
         { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },

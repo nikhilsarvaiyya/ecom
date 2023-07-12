@@ -1,10 +1,16 @@
-﻿import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { AccountService } from '@app/_services';
 import { ProductService } from '@app/_services';
 
-@Component({ templateUrl: 'home.component.html' })
-export class HomeComponent {
+@Component({
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.less']
+})
+export class ProductComponent implements OnInit {
+
+
     
     color = ["#a946ec","#193a18","#4537f8","#daf185","#980b06"];
     size : any[] = []
@@ -18,12 +24,12 @@ export class HomeComponent {
 
 
     ngOnInit() {
-        this.productService.getAll()
-            .pipe(first())
-            .subscribe(products => {
-                this.product = products;
-                
-            } );
+      this.productService.getAll()
+        .pipe(first())
+        .subscribe(products => {
+            this.product = products;
+            
+        } );
     }
 
     getUniqueSize(variants:any){

@@ -1,0 +1,52 @@
+<div class="wrapper row mt-3" *ngIf="product">
+    <div class="preview col-md-6">
+        <div class="" style="height: 360px; width: 100%;object-fit: cover;">
+            <div class="tab-pane active" id="pic-1"><img [src]="showImage || noImage " height="360" width="100%"
+                    style="object-fit: cover;" /></div>
+        </div>
+        <ul class="thumbnilGallery">
+            <li *ngFor="let image of allColorImages">
+                <img style="cursor: pointer;" *ngIf="image" [src]="image" (click)="setImage(image)" />
+            </li>
+        </ul>
+    </div>
+    <div class="details col-md-6">
+        <h3 class="product-title">{{product.name}}</h3>
+        <div class="rating">
+            <div class="stars">
+                <span class="bi bi-star checked"></span>
+                <span class="bi bi-star checked"></span>
+                <span class="bi bi-star checked"></span>
+                <span class="bi bi-star"></span>
+                <span class="bi bi-star"></span>
+            </div>
+            <span class="review-no">41 reviews</span>
+        </div>
+        <p class="product-description">{{product.description}}</p>
+        <h4 class="price">current price: <span><i class="bi bi-inr"></i>{{product.price}}</span></h4>
+        <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+        <h5 class="sizes " *ngIf="getUniqueSize(product?.variants)?.length !== 0">sizes:
+            <span *ngFor="let s of getUniqueSize(product?.variants); index as i">
+                <button class="color btn bg-light border" >
+                    {{s}} <i class="bi bi-x d-block text-center "></i>
+                </button>
+            </span>
+            
+        </h5>
+       
+        <h5 class="colors" *ngIf="product?.variants?.length !== 0">colors:
+            <span *ngFor="let c of product?.variants; index as i">
+                <button class="color btn border" [ngClass]="{'disabled': c?.image?.length === 0}"
+                    (click)="setColorImage(c.color)"
+                    [style]="{background: c.color,}" >
+                    <i *ngIf="c?.image?.length === 0" class="bi bi-x "></i>
+                </button>
+            </span>
+        </h5>
+
+        <div class="action">
+            <button class="add-to-cart btn btn-debiult me-2" type="button">add to cart</button>
+            <button class="like btn btn-debiult" type="button"><span class="bi bi-heart"></span></button>
+        </div>
+    </div>
+</div>
