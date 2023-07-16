@@ -35,8 +35,11 @@ export class ProductService {
     }
 
     create(params: any) {
+        console.log({params})
         return this.http.post(baseUrl, params);
     }
+
+    
 
     update(id: string, params: any) {
         return this.http.put(`${baseUrl}/${id}`, params)

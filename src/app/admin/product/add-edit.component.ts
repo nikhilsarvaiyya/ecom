@@ -14,7 +14,9 @@ export class AddEditComponent implements OnInit {
     loading = false;
     submitting = false;
     submitted = false;
+    items = ['item1', 'item2', 'item3', 'item4'];
 
+    
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -29,6 +31,7 @@ export class AddEditComponent implements OnInit {
 
         this.form = this.formBuilder.group({
             name: ['', Validators.required],
+            image:[[]],
             price: ['', Validators.required],
             description: ['', Validators.required],
         });
@@ -46,7 +49,9 @@ export class AddEditComponent implements OnInit {
                 });
         }
     }
-
+    setSelectedFiles(images: string) {
+        this.form.controls['image'].setValue(images);
+    }
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
 

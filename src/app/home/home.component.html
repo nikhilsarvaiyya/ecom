@@ -8,7 +8,7 @@
                     <div *ngIf="item?.image?.length !== 1 instanceof Array; else imgArr">
                         <ngb-carousel [showNavigationArrows]="true" [showNavigationIndicators]="true"   >
                             <ng-template ngbSlide *ngFor="let img of item.image">
-                                <img height="150" width="100%" style="object-fit:cover;display: block;background: url('../assets/img/no-image.png') no-repeat center center" [src]="img"  />
+                                <img height="150" width="100%" style="object-fit:cover;display: block;background: url('../assets/img/no-image.png') no-repeat center center" [src]="'assets/'+img.filename"  />
                             </ng-template>
                         </ngb-carousel>
                     </div>

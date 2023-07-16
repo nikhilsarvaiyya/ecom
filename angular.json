@@ -25,7 +25,8 @@
             "inlineStyleLanguage": "less",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {"glob": "**/*", "input": "../backend-ecom/uploads", "output": "./assets/"}
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",

@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ProductRoutingModule } from './product-routing.module';
 import { ListComponent } from './list.component';
 import { AddEditComponent } from './add-edit.component';
+import { FileUploadComponent } from '@app/_components';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { AddEditComponent } from './add-edit.component';
 ],
 declarations: [
     ListComponent,
-    AddEditComponent
+    AddEditComponent,
+    FileUploadComponent
 ],
 schemas: [
   CUSTOM_ELEMENTS_SCHEMA,
