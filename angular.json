@@ -29,6 +29,7 @@
               {"glob": "**/*", "input": "../backend-ecom/uploads", "output": "./assets/"}
             ],
             "styles": [
+              "src/custom-theme.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "src/styles.less"

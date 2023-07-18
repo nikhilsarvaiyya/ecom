@@ -19,8 +19,8 @@ import { AvatarComponent } from './_components/avatar/avatar.component';;
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UniqueWordFromArrayPipe } from './_pipe/unique-word-from-array.pipe';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
-import { ProductComponent } from './pages/product/product.component'
-
+import { ProductComponent } from './pages/product/product.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
     imports: [
@@ -28,7 +28,8 @@ import { ProductComponent } from './pages/product/product.component'
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule,
-        NgbModule
+        NgbModule,
+        NoopAnimationsModule
     ],
     declarations: [
         AppComponent,
