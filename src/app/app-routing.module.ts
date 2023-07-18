@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './home';
+import { HomeComponent } from './pages/home';
 import { AuthGuard } from './_helpers';
 import { Role } from './_models';
 import { PageNotFoundComponent } from './_components';
@@ -10,10 +10,11 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 const accountModule = () => import('./account/account.module').then(x => x.AccountModule);
 const adminModule = () => import('./admin/admin.module').then(x => x.AdminModule);
 const profileModule = () => import('./profile/profile.module').then(x => x.ProfileModule);
+const pageModule = () => import('./pages/pages.module').then(x => x.PagesModule);
 
 
 const routes: Routes = [
-    { path: '', component: HomeComponent },
+    { path: '', loadChildren: pageModule },
     { path: 'product-detail/:id/:name', component: ProductDetailComponent },
     { path: 'account', loadChildren: accountModule },
     { path: 'profile', loadChildren: profileModule, canActivate: [AuthGuard] },
