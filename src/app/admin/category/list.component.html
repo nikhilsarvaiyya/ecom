@@ -1,0 +1,32 @@
+﻿<h1>Categorys</h1>
+<p>All Category from secure (admin only) api end point:</p>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Create Category</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width:5%"></th>
+            <th style="width:40%">Category</th>
+            <th style="width:40%">Sub Category</th>
+            <th style="width:10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let category of categorys; let i = index">
+            <td class="align-middle">{{i+1}}</td>
+            <td class="align-middle"><i class="bi bi-bookmark-plus"></i> {{category.category}}</td>
+            <td class="align-middle"><i class="bi bi-bookmarks"></i> {{category.subCategory}}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{category.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
+                <button (click)="deleteProduct(category.id)" class="btn btn-sm btn-danger btn-delete-category" [disabled]="category.isDeleting">
+                    <span *ngIf="category.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!category.isDeleting">Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!categorys">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

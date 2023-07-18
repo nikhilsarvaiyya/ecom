@@ -13,7 +13,7 @@
                         </ngb-carousel>
                     </div>
                     <ng-template #imgArr>
-                        <img height="150" width="100%" style="object-fit:cover;background: url('../assets/img/no-image.png') no-repeat center center" [src]="item.image"  />
+                        <img height="150" width="100%" style="object-fit:cover;background: url('../assets/img/no-image.png') no-repeat center center" [src]="'assets/'+item.image[0].filename"  />
                     </ng-template>
                 </div>
                 

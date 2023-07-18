@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AccountService, AlertService, ProductService } from '@app/_services';
+import { AccountService, AlertService, CategoryService, ProductService } from '@app/_services';
 import { MustMatch } from '@app/_helpers';
 
 @Component({ templateUrl: 'add-edit.component.html' })
@@ -14,16 +14,7 @@ export class AddEditComponent implements OnInit {
     loading = false;
     submitting = false;
     submitted = false;
-    category = [
-        { "id": "1", "name": "Electronic" },
-        { "id": "1", "name": "Mobile" },
-        { "id": "1", "name": "Stationary" },
-        { "id": "1", "name": "Fashion" },
-        { "id": "1", "name": "Men" },
-        { "id": "1", "name": "Women" },
-        { "id": "1", "name": "Kid" },
-        { "id": "1", "name": "Sport" }
-    ];
+    category = [];
 
 
     constructor(
@@ -32,6 +23,8 @@ export class AddEditComponent implements OnInit {
         private router: Router,
         private accountService: AccountService,
         private productService: ProductService,
+        private categoryService: CategoryService,
+        
         private alertService: AlertService
     ) { }
 
@@ -39,19 +32,16 @@ export class AddEditComponent implements OnInit {
         this.id = this.route.snapshot.params['id'];
 
         this.form = this.formBuilder.group({
-            name: ['', Validators.required],
-            image: [[]],
-            category: ['1', Validators.required],
-            price: ['', Validators.required],
-            description: ['', Validators.required],
+            category: ['', Validators.required],
+            subCategory: ['', Validators.required],
         });
 
-        this.title = 'Create Product';
+        this.title = 'Create Category';
         if (this.id) {
             // edit mode
-            this.title = 'Edit Product';
+            this.title = 'Edit Category';
             this.loading = true;
-            this.productService.getById(this.id)
+            this.categoryService.getById(this.id)
                 .pipe(first())
                 .subscribe(x => {
                     this.form.patchValue(x);
@@ -82,11 +72,11 @@ export class AddEditComponent implements OnInit {
         let saveProduct;
         let message: string;
         if (this.id) {
-            saveProduct = () => this.productService.update(this.id!, this.form.value);
-            message = 'Product updated';
+            saveProduct = () => this.categoryService.update(this.id!, this.form.value);
+            message = 'Category updated';
         } else {
-            saveProduct = () => this.productService.create(this.form.value);
-            message = 'Product created';
+            saveProduct = () => this.categoryService.create(this.form.value);
+            message = 'Category created';
         }
 
         saveProduct()
@@ -94,7 +84,7 @@ export class AddEditComponent implements OnInit {
             .subscribe({
                 next: () => {
                     this.alertService.success(message, { keepAfterRouteChange: true });
-                    this.router.navigateByUrl('/admin/products');
+                    this.router.navigateByUrl('/admin/category');
                 },
                 error: error => {
                     this.alertService.error(error);

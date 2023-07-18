@@ -8,6 +8,7 @@ import { OverviewComponent } from './overview.component';
 
 const accountsModule = () => import('./accounts/accounts.module').then(x => x.AccountsModule);
 const productModule = () => import('./product/product.module').then(x => x.ProductModule);
+const categoryModule = () => import('./category/category.module').then(x => x.CategoryModule);
 
 const routes: Routes = [
     { path: '', component: SubNavComponent, outlet: 'subnav' },
@@ -16,7 +17,8 @@ const routes: Routes = [
         children: [
             { path: '', component: OverviewComponent },
             { path: 'accounts', loadChildren: accountsModule },
-            { path: 'products', loadChildren: productModule }
+            { path: 'products', loadChildren: productModule },
+            { path: 'category', loadChildren: categoryModule }
         ]
     }
 ];

@@ -1,0 +1,34 @@
+﻿<h1>{{title}}</h1>
+
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="form-group">
+            <label for="category">Category</label>
+            <input type="text" class="form-control" name="category" id="category" placeholder="Enter Category"
+                [ngClass]="{ 'is-invalid': submitted && f.category.errors }" formControlName="category">
+            <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+                <div *ngIf="f.category.errors.required"> category is required</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="subCategory">Sub Category</label>
+            <input type="text" class="form-control" name="subCategory" id="subCategory" placeholder="Enter Sub Category"
+                [ngClass]="{ 'is-invalid': submitted && f.subCategory.errors }" formControlName="subCategory">
+            <div *ngIf="submitted && f.subCategory.errors" class="invalid-feedback">
+                <div *ngIf="f.subCategory.errors.required"> subCategory is required</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mb-3">
+        <button [disabled]="submitting" class="btn btn-primary">
+            <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+            Save
+        </button>
+        <a routerLink="/admin/products" class="btn btn-link">Cancel</a>
+    </div>
+</form>
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>

@@ -35,7 +35,7 @@ export class ProductService {
     }
 
     create(params: any) {
-        console.log({params})
+       
         return this.http.post(baseUrl, params);
     }
 

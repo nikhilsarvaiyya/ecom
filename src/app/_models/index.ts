@@ -2,3 +2,4 @@
 export * from './alert';
 export * from './role';
 export * from './product';
+export * from './category';
