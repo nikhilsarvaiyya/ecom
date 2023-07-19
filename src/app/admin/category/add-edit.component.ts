@@ -1,13 +1,17 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators ,FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {first, map, startWith} from 'rxjs/operators';
 
 import { AccountService, AlertService, CategoryService, ProductService } from '@app/_services';
 import { MustMatch } from '@app/_helpers';
 
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
+    myControl = new FormControl('');
+    options: string[] = ['One', 'Two', 'Three'];
+    filteredOptions!: Observable<string[]>;
     form!: FormGroup;
     id?: string;
     title!: string;
@@ -15,7 +19,8 @@ export class AddEditComponent implements OnInit {
     submitting = false;
     submitted = false;
     category = [];
-
+    zeroPath = '';
+    allSubCategory : any = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -30,12 +35,16 @@ export class AddEditComponent implements OnInit {
 
     ngOnInit() {
         this.id = this.route.snapshot.params['id'];
+        this.zeroPath = this.route.snapshot.url[0].path;
+        
 
         this.form = this.formBuilder.group({
             category: ['', Validators.required],
-            subCategory: ['', Validators.required],
+            subCategory: [[]],
         });
 
+        this.filterByCategory()
+       
         this.title = 'Create Category';
         if (this.id) {
             // edit mode
@@ -46,9 +55,18 @@ export class AddEditComponent implements OnInit {
                 .subscribe(x => {
                     this.form.patchValue(x);
                     this.loading = false;
+                    this.addSubcategory()
                 });
         }
     }
+
+    filterByCategory(){
+        this.filteredOptions = this.form.controls.category.valueChanges.pipe(
+            startWith(''),
+            map(value => this._filter(value || '')),
+        );
+    }
+
     setSelectedFiles(images: string) {
         this.form.controls['image'].setValue(images);
     }
@@ -71,6 +89,7 @@ export class AddEditComponent implements OnInit {
         // create or update account based on id param
         let saveProduct;
         let message: string;
+        this.form.controls.subCategory.setValue(this.allSubCategory)
         if (this.id) {
             saveProduct = () => this.categoryService.update(this.id!, this.form.value);
             message = 'Category updated';
@@ -92,6 +111,26 @@ export class AddEditComponent implements OnInit {
                 }
             });
     }
+
+
+    addSubcategory(){
+       let a = this.form.controls.subCategory.value;
+       this.allSubCategory = this.allSubCategory.concat(a);
+       this.form.controls.subCategory.setValue('')
+    }
+
+    removeSubcategory(subCat:any){
+        let filterList = this.allSubCategory.filter((m:any) => m !== subCat);
+        console.log(this.allSubCategory)
+        this.allSubCategory = filterList
+     }
+
+    private _filter(value: string): string[] {
+        console.log(value)
+        const filterValue = value.toLowerCase();
+    
+        return this.options.filter(option => option.toLowerCase().includes(filterValue));
+      }
 }
 
 

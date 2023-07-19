@@ -1,6 +1,7 @@
 ﻿<h1>Categorys</h1>
 <p>All Category from secure (admin only) api end point:</p>
 <a routerLink="add" class="btn btn-sm btn-success mb-2">Create Category</a>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -14,8 +15,16 @@
         <tr *ngFor="let category of categorys; let i = index">
             <td class="align-middle">{{i+1}}</td>
             <td class="align-middle"><i class="bi bi-bookmark-plus"></i> {{category.category}}</td>
-            <td class="align-middle"><i class="bi bi-bookmarks"></i> {{category.subCategory}}</td>
+            <td class="align-middle"  >
+                <ul class="list-group" *ngIf="category.subCategory.length !== 0; else noData">
+                    <li class="list-group-item" *ngFor="let sub of category.subCategory">
+                        <i class="bi bi-bookmarks"></i> {{sub}}
+                    </li>
+                </ul>
+                <ng-template #noData>No Sub Category Available</ng-template>
+            </td>
             <td style="white-space: nowrap">
+                <a  routerLink="subcategory/{{category.id}}" class="btn btn-sm btn-info me-1">Add Sub Category</a>
                 <a routerLink="edit/{{category.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
                 <button (click)="deleteProduct(category.id)" class="btn btn-sm btn-danger btn-delete-category" [disabled]="category.isDeleting">
                     <span *ngIf="category.isDeleting" class="spinner-border spinner-border-sm"></span>
