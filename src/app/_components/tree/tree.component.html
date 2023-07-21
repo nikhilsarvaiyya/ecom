@@ -1,0 +1,16 @@
+<ul>
+    <li *ngFor="let t of tree;let i = index">
+        <h6>{{t.name}}</h6>
+        <button class="btn btn-info bi bi-info-square" (click)="setInfo(t)"></button>
+        <app-tree [tree]="t.children" *ngIf="t.children" (selectedNode)="setInfo($event)"  ></app-tree>
+    </li>
+</ul>
+
+<!-- <ul>
+    <li *ngFor="let t of tree">
+        <details>
+            <summary>{{t.text}}</summary>
+            <app-tree [tree]="t.nodes" *ngIf="t.nodes"></app-tree>
+        </details>
+    </li>
+</ul> -->

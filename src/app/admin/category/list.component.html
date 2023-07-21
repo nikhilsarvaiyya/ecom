@@ -1,8 +1,54 @@
 ﻿<h1>Categorys</h1>
 <p>All Category from secure (admin only) api end point:</p>
 <a routerLink="add" class="btn btn-sm btn-success mb-2">Create Category</a>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card p-1">
+            <app-tree [tree]="categorys" (selectedNode)="getInfoHandler($event)" ></app-tree>
+        </div>
+    </div>
+    <div class="col-md-6" *ngIf="selectedItem">
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5 class="card-title">Category</h5>
+                <h6 class="card-subtitle mb-2 text-muted">You can update your category.</h6>
+                <div class="input-group ">
+                    <input disabled="true" type="text" class="form-control" [placeholder]="selectedItem?.name"
+                        aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary bi bi-pencil" type="button"  ></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <div class="card" >
+            <div class="card-body">
+                <h5 class="card-title">Sub Category</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Below are the list of sub category assign to Category.You Can
+                    add or delete the sub category from here.</h6>
+                <ul class="list-group" *ngIf="selectedItem && selectedItem?.children?.length !== 0">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let item of selectedItem?.children">
+                       {{item.name}}
+                        <button class="btn btn-danger btn-sm bi bi-x"></button>
+                    </li>
+                </ul>
+                <div class="input-group mt-2">
+                    <input type="text" class="form-control" placeholder="Add Sub Category"
+                        aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary bi bi-plus" type="button"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<table class="table table-striped">
+</div>
+
+
+<!-- <table class="table table-striped">
     <thead>
         <tr>
             <th style="width:5%"></th>
@@ -15,17 +61,10 @@
         <tr *ngFor="let category of categorys; let i = index">
             <td class="align-middle">{{i+1}}</td>
             <td class="align-middle"><i class="bi bi-bookmark-plus"></i> {{category.category}}</td>
-            <td class="align-middle"  >
-                <ul class="list-group" *ngIf="category.subCategory.length !== 0; else noData">
-                    <li class="list-group-item" *ngFor="let sub of category.subCategory">
-                        <i class="bi bi-bookmarks"></i> {{sub}}
-                    </li>
-                </ul>
-                <ng-template #noData>No Sub Category Available</ng-template>
-            </td>
+            <td class="align-middle"><i class="bi bi-bookmarks"></i> {{category.level || 0}}</td>
             <td style="white-space: nowrap">
-                <a  routerLink="subcategory/{{category.id}}" class="btn btn-sm btn-info me-1">Add Sub Category</a>
                 <a routerLink="edit/{{category.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
+                <a  routerLink="subcategory/{{category.id}}" class="btn btn-sm btn-info me-1">Add Sub Category</a>
                 <button (click)="deleteProduct(category.id)" class="btn btn-sm btn-danger btn-delete-category" [disabled]="category.isDeleting">
                     <span *ngIf="category.isDeleting" class="spinner-border spinner-border-sm"></span>
                     <span *ngIf="!category.isDeleting">Delete</span>
@@ -38,4 +77,4 @@
             </td>
         </tr>
     </tbody>
-</table>
+</table> -->

@@ -7,6 +7,7 @@ import { ListComponent } from './list.component';
 import { AddEditComponent } from './add-edit.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
+import { TreeComponent } from '@app/_components';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import {MatInputModule} from '@angular/material/input';
 ],
 declarations: [
     ListComponent,
-    AddEditComponent
+    AddEditComponent,
+    TreeComponent
     
 ],
 schemas: [

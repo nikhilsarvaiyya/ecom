@@ -19,11 +19,12 @@ import { UniqueWordFromArrayPipe } from './_pipe/unique-word-from-array.pipe';
 
 // Comman Components
 import { AppComponent } from './app.component';
-import { AlertComponent,PageNotFoundComponent } from './_components';
+import { AlertComponent,PageNotFoundComponent,TreeComponent } from './_components';
 import { HomeComponent } from './pages/home';
 import { HeaderComponent } from './layout/header/header.component';
 import { AvatarComponent } from './_components/avatar/avatar.component';
 import { FooterComponent } from './layout/footer/footer.component';
+
 //-----------------------------------------------------------------------------------------------
 
 @NgModule({
@@ -44,7 +45,8 @@ import { FooterComponent } from './layout/footer/footer.component';
         PageNotFoundComponent,
         AvatarComponent,
         UniqueWordFromArrayPipe,
-        FooterComponent
+        FooterComponent,
+        //TreeComponent
     ],
     providers: [
         { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },
