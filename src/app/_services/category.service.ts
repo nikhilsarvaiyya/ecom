@@ -31,6 +31,10 @@ export class CategoryService {
         return this.http.get<Category[]>(baseUrl);
     }
 
+    getAllByType(type : string) {
+        return this.http.get<Category[]>(`${baseUrl}/${type}`);
+    }
+    
     getById(id: string) {
         return this.http.get<Category>(`${baseUrl}/${id}`);
     }
@@ -38,8 +42,6 @@ export class CategoryService {
     create(params: any) {
         return this.http.post(baseUrl, params);
     }
-
-    
 
     update(id: string, params: any) {
         return this.http.put(`${baseUrl}/${id}`, params)

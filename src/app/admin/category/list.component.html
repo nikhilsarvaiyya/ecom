@@ -1,46 +1,81 @@
 ﻿<h1>Categorys</h1>
 <p>All Category from secure (admin only) api end point:</p>
-<a routerLink="add" class="btn btn-sm btn-success mb-2">Create Category</a>
+
 <div class="row">
-    <div class="col-md-6">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation" *ngFor="let item of ['menu','comment']">
+          <button (click)="handleType(item)" class="nav-link uppercase mr-2 " [ngClass]="{'active' : item === typeOfCategory}"  type="button"  >{{item}}</button>
+        </li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col">
         <div class="card p-1">
-            <app-tree [tree]="categorys" (selectedNode)="getInfoHandler($event)" ></app-tree>
+            <app-tree [tree]="categorys" (selectedNode)="getInfoHandler($event)"></app-tree>
+            <form [formGroup]="createNewCategory" (ngSubmit)="onSubmit('addCategory')">
+                <div class="input-group mt-2">
+                    <input formControlName="name" [ngClass]="{ 'is-invalid':  f.name.errors }" type="text"
+                        name="name" id="name" class="form-control" placeholder="Enter Category">
+                    <div class="input-group-append">
+                        <button [disabled]="f.name.errors && f.name.errors.required"
+                            class="btn btn-success bi bi-plus-lg"></button>
+                    </div>
+                    <div *ngIf="f.name.errors" class="invalid-feedback">
+                        <div *ngIf="f.name.errors.required"> Category Name is required</div>
+                    </div>
+
+                </div>
+            </form>
         </div>
     </div>
-    <div class="col-md-6" *ngIf="selectedItem">
+    <div class="col" *ngIf="selectedCategory">
         <div class="card mb-2">
             <div class="card-body">
                 <h5 class="card-title">Category</h5>
                 <h6 class="card-subtitle mb-2 text-muted">You can update your category.</h6>
-                <div class="input-group ">
-                    <input disabled="true" type="text" class="form-control" [placeholder]="selectedItem?.name"
-                        aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary bi bi-pencil" type="button"  ></button>
+                <form [formGroup]="createNewCategory" (ngSubmit)="onSubmit('editCategory')">
+                    <div class="input-group ">
+                        <input formControlName="name" [ngClass]="{ 'is-invalid':  f.name.errors }" type="text"
+                            name="name" id="name" class="form-control" placeholder="Enter Category">
+                        <div class="input-group-append">
+                            <button [disabled]="f.name.errors?.required"
+                                class="btn btn-success bi bi-check-lg"></button>
+                        </div>
+                        <div *ngIf="f.name.errors" class="invalid-feedback">
+                            <div *ngIf="f.name.errors.required"> Category Name is required</div>
+                        </div>
+
                     </div>
-                </div>
+                </form>
             </div>
         </div>
-       
-        <div class="card" >
+
+        <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Sub Category</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Below are the list of sub category assign to Category.You Can
                     add or delete the sub category from here.</h6>
-                <ul class="list-group" *ngIf="selectedItem && selectedItem?.children?.length !== 0">
+                <ul class="list-group" *ngIf="selectedCategory && selectedCategory?.children?.length !== 0">
                     <li class="list-group-item d-flex justify-content-between align-items-center"
-                        *ngFor="let item of selectedItem?.children">
-                       {{item.name}}
+                        *ngFor="let item of selectedCategory?.children">
+                        {{item.name}}
                         <button class="btn btn-danger btn-sm bi bi-x"></button>
                     </li>
                 </ul>
-                <div class="input-group mt-2">
-                    <input type="text" class="form-control" placeholder="Add Sub Category"
-                        aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary bi bi-plus" type="button"></button>
+                <form [formGroup]="createNewCategory" (ngSubmit)="onSubmit('addSubCategory')">
+                    <div class="input-group mt-2">
+                        <input formControlName="name" [ngClass]="{ 'is-invalid':  f.name.errors }" type="text"
+                            name="name" id="name" class="form-control" placeholder="Enter Category">
+                        <div class="input-group-append">
+                            <button [disabled]="f.name.errors?.required"
+                                class="btn btn-success bi bi-plus-lg"></button>
+                        </div>
+                        <div *ngIf="f.name.errors" class="invalid-feedback">
+                            <div *ngIf="f.name.errors.required"> Category Name is required</div>
+                        </div>
+
                     </div>
-                </div>
+                </form> 
             </div>
         </div>
     </div>
