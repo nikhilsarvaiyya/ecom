@@ -1,22 +1,28 @@
 ﻿<h1>Products</h1>
 <p>All Product from secure (admin only) api end point:</p>
+<!-- <pre>{{products | json}}</pre> -->
 <a routerLink="add" class="btn btn-sm btn-success mb-2">Create Product</a>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="width:30%">Image</th>
-            <th style="width:30%">Name</th>
-            <th style="width:30%">Price</th>
+            <th style="width:5%"></th>
+            <th style="width:10%">Image</th>
+            <th style="width:35%">Name</th>
+            <th style="width:10%">Price</th>
+            <th style="width:30%">Category</th>
             <th style="width:10%"></th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let product of products">
+        <tr *ngFor="let product of products; let i = index">
+           
+            <td class="align-middle">{{i + 1}}</td>
             <td class="align-middle">
-                <img [src]="product.image[0] || noImage" height="30" />
+                <img [src]="'assets/'+product.image[0]?.filename || noImage" height="30" />
             </td>
             <td class="align-middle">{{product.name}}</td>
             <td class="align-middle">{{product.price}}</td>
+            <td class="align-middle">{{this.get_keys(product.category).reverse() }}</td>
             <td style="white-space: nowrap">
                 <a routerLink="edit/{{product.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
                 <button (click)="deleteProduct(product.id)" class="btn btn-sm btn-danger btn-delete-product" [disabled]="product.isDeleting">

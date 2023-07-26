@@ -1,61 +1,53 @@
-ul{
-    --spacing : 0;
-    --radius  : 10px;
-  }
-ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+summary {
+  display: block;
+  cursor: pointer;
+  outline: 0; 
 }
 
-ul li {
-    margin-left: 20px;
-    position: relative;
-    padding-left: 5px;
-   
-}
-
-ul li::before {
-    content: " ";
-    position: absolute;
-    width: 2px;
-    background-color: #ddd;
-    top: -2px;
-    bottom: -17px;
-    left: -10px;
-    border-radius: 4px
-}
-
-body>ul>li:first-child::before {
-    top: 12px;
-}
-
-ul li:not(:first-child):last-child::before {
+summary::-webkit-details-marker {
     display: none;
+  }
+
+
+.tree-summary {
+  display: block;
+  white-space: nowrap;
+  position: relative;
 }
 
-ul li:only-child::before {
-    display: list-item;
-    content: " ";
-    position: absolute;
-    width: 2px;
-    background-color: #ddd;
-    top: -2px;
-    bottom: 7px;
-    height: 20px;
-    left: -11px;
-    border-radius: 4px
+.tree-summary .tree-summary {
+  margin-left: 24px;
+}
+.tree-summary.is-expandable[open] > .tree-summary-title::before {
+  content: "\203A";
+  transform: rotate(90deg);
+}
+.tree-summary.is-expandable > .tree-summary-title {
+  padding-left: 24px;
+}
+.tree-summary.is-expandable > .tree-summary-title::before {
+  position: absolute;
+  will-change: transform;
+  transition: transform 300ms ease;
+ 
+  
+  content: "\203A";
+  left: 0;
+  display: inline-block;
+  width: 1.6rem;
+  text-align: center;
 }
 
-ul li::after {
-    content: " ";
-    position: absolute;
-    left: -10px;
-    width: 15px;
-    height: 2px;
-    background-color: #ddd;
-    top: 16px;
-    border-radius: 4px;
+.tree-summary-title {
+  cursor: pointer;
+  display: block;
+  outline: 0;
+  line-height: 32px;
+}
+
+
+.tree-summary-title::-webkit-details-marker {
+  display: none;
 }
 
 
@@ -73,7 +65,7 @@ button{
   button{
     width:34px;
     height:34px;
-    margin: 0 0 2px -2px;
+    margin: 0 0 0 -2px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
@@ -88,6 +80,69 @@ button{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
+////////////////////////////////////////////////////////////////
+
+// ul{
+//     --spacing : 0;
+//     --radius  : 10px;
+//   }
+// ul {
+//     margin: 0;
+//     padding: 0;
+//     list-style: none;
+// }
+
+// ul li {
+//     margin-left: 20px;
+//     position: relative;
+//     padding-left: 5px;
+   
+// }
+
+// ul li::before {
+//     content: " ";
+//     position: absolute;
+//     width: 2px;
+//     background-color: #ddd;
+//     top: -2px;
+//     bottom: -17px;
+//     left: -10px;
+//     border-radius: 4px
+// }
+
+// body>ul>li:first-child::before {
+//     top: 12px;
+// }
+
+// ul li:not(:first-child):last-child::before {
+//     display: none;
+// }
+
+// ul li:only-child::before {
+//     display: list-item;
+//     content: " ";
+//     position: absolute;
+//     width: 2px;
+//     background-color: #ddd;
+//     top: -2px;
+//     bottom: 7px;
+//     height: 20px;
+//     left: -11px;
+//     border-radius: 4px
+// }
+
+// ul li::after {
+//     content: " ";
+//     position: absolute;
+//     left: -10px;
+//     width: 15px;
+//     height: 2px;
+//     background-color: #ddd;
+//     top: 16px;
+//     border-radius: 4px;
+// }
+
+
   
 // summary::marker,
 // summary::-webkit-details-marker{

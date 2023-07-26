@@ -26,13 +26,13 @@ export class CategoryService {
         return this.categorySubject.value;
     }
 
-    getAll() {
-        
-        return this.http.get<Category[]>(baseUrl);
+    getAll(type : string) {
+        return this.http.get<Category[]>(`${baseUrl}/${type}`);
     }
 
-    getAllByType(type : string) {
-        return this.http.get<Category[]>(`${baseUrl}/${type}`);
+    getAllByType(data:any) {
+        console.log(data)
+        return this.http.get<Category[]>(`${baseUrl}/${data.type}/${data.pattern}`);
     }
     
     getById(id: string) {

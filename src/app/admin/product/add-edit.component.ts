@@ -2,8 +2,11 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
-import { AccountService, AlertService, ProductService } from '@app/_services';
+import {MatInputModule} from '@angular/material/input';
+import {NgIf} from '@angular/common';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { AccountService, AlertService, CategoryService, ProductService } from '@app/_services';
 import { MustMatch } from '@app/_helpers';
 
 @Component({ templateUrl: 'add-edit.component.html' })
@@ -14,16 +17,7 @@ export class AddEditComponent implements OnInit {
     loading = false;
     submitting = false;
     submitted = false;
-    category = [
-        { "id": "1", "name": "Electronic" },
-        { "id": "1", "name": "Mobile" },
-        { "id": "1", "name": "Stationary" },
-        { "id": "1", "name": "Fashion" },
-        { "id": "1", "name": "Men" },
-        { "id": "1", "name": "Women" },
-        { "id": "1", "name": "Kid" },
-        { "id": "1", "name": "Sport" }
-    ];
+    category : any = [];
 
 
     constructor(
@@ -32,7 +26,8 @@ export class AddEditComponent implements OnInit {
         private router: Router,
         private accountService: AccountService,
         private productService: ProductService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private categoryService : CategoryService
     ) { }
 
     ngOnInit() {
@@ -41,11 +36,12 @@ export class AddEditComponent implements OnInit {
         this.form = this.formBuilder.group({
             name: ['', Validators.required],
             image: [[]],
-            category: ['1', Validators.required],
+            category: [null, Validators.required],
             price: ['', Validators.required],
             description: ['', Validators.required],
         });
 
+        this.getCategories('menu')
         this.title = 'Create Product';
         if (this.id) {
             // edit mode
@@ -64,6 +60,20 @@ export class AddEditComponent implements OnInit {
     }
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
+
+    getCategories(type:any){
+        let val = {
+            type:type,
+            pattern : "flat"
+          }
+        this.categoryService.getAllByType(val)
+        .pipe(first())
+        .subscribe(category => this.category = category);
+    
+        // this.categoryService.getAll()
+        //   .pipe(first())
+        //   .subscribe(category => this.categorys = category);
+      }
 
     onSubmit() {
         this.submitted = true;

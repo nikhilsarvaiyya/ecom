@@ -34,13 +34,17 @@ export class ListComponent implements OnInit {
       name: ['Category Name', Validators.required],
       category: ['menu', Validators.required],
       level: [1, Validators.required],
-      parentId: [''],
+      parentId: [null],
     });
   }
 
   handleType(type:any){
     this.typeOfCategory = type
-    this.categoryService.getAllByType(type)
+    let val = {
+      type:type,
+      pattern : "tree"
+    }
+    this.categoryService.getAllByType(val)
     .pipe(first())
     .subscribe(category => this.categorys = category);
 
@@ -77,7 +81,7 @@ export class ListComponent implements OnInit {
       saveProduct = () => this.categoryService.create(this.createNewCategory.value);
       message = 'Category created';
     } else  {
-      this.f.parentId.setValue('');
+      this.f.parentId.setValue(null);
       this.f.level.setValue(1);
       saveProduct = () => this.categoryService.create(this.createNewCategory.value);
       message = 'Category created';

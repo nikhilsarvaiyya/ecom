@@ -1,5 +1,5 @@
 ﻿<h1>{{title}}</h1>
-
+<!-- {{category | json}} -->
 <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="row">
         <app-file-upload (selectFiles)="setSelectedFiles($event)" requiredFileType="image/png;image/jpg"></app-file-upload> 
@@ -8,10 +8,10 @@
             <label for="category">Product Category</label>
             <select class="form-select"  name="category" id="category" placeholder="Enter Product category"
             [ngClass]="{ 'is-invalid': submitted && f.category.errors }" formControlName="category">
-                   <option *ngFor="let cat of category" [value]="cat.id">{{cat.name}}</option>
-              </select>
+                <option *ngFor="let cat of category" [value]="cat.id">{{cat.name}}</option>
+            </select>
             <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
-                <div *ngIf="f.category.errors.required"> category is required</div>
+                <div *ngIf="f.category.errors.required"> Category is required</div>
             </div>
         </div>
         

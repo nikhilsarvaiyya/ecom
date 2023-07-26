@@ -9,6 +9,8 @@ export class TreeComponent {
   @Input() tree: any;
   @Output() selectedNode: EventEmitter<number> = new EventEmitter();
 
+
+
   setInfo(event: any) {
     this.selectedNode.emit(event);
     if (event instanceof MouseEvent) {
