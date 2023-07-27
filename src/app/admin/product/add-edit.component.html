@@ -1,58 +1,181 @@
 ﻿<h1>{{title}}</h1>
-<!-- {{category | json}} -->
 <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="row">
-        <app-file-upload (selectFiles)="setSelectedFiles($event)" requiredFileType="image/png;image/jpg"></app-file-upload> 
-        
-        <div class="form-group">
-            <label for="category">Product Category</label>
-            <select class="form-select"  name="category" id="category" placeholder="Enter Product category"
-            [ngClass]="{ 'is-invalid': submitted && f.category.errors }" formControlName="category">
-                <option *ngFor="let cat of category" [value]="cat.id">{{cat.name}}</option>
-            </select>
-            <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
-                <div *ngIf="f.category.errors.required"> Category is required</div>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label for="name">Product Name</label>
-            <input type="text" class="form-control" name="name" id="name" placeholder="Enter Product Name"
-                [ngClass]="{ 'is-invalid': submitted && f.name.errors }" formControlName="name">
-            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                <div *ngIf="f.name.errors.required"> Name is required</div>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-md-6 ">
+        <div class="card">
+            <div class="card-header">Product Detail</div>
+            <div class="card-body p-3">
+                
+                    <app-file-upload (selectFiles)="setSelectedFiles($event)"
+                        requiredFileType="image/png;image/jpg"></app-file-upload>
 
-        <div class="form-group">
-            <label for="price">Product Price</label>
-            <input type="number" class="form-control" name="price" id="price" placeholder="Enter Product Price"
-                [ngClass]="{ 'is-invalid': submitted && f.price.errors }" formControlName="price">
-            <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
-                <div *ngIf="f.price.errors.required"> price is required</div>
+                    <div class="form-group">
+                        <label for="category">Product Category</label>
+                        <select class="form-select" name="category" id="category" placeholder="Enter Product category"
+                            [ngClass]="{ 'is-invalid': submitted && f.category.errors }" formControlName="category">
+                            <option *ngFor="let cat of category" [value]="cat.id">{{cat.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+                            <div *ngIf="f.category.errors.required"> Category is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Product Name</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter Product Name"
+                            [ngClass]="{ 'is-invalid': submitted && f.name.errors }" formControlName="name">
+                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                            <div *ngIf="f.name.errors.required"> Name is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Product Price</label>
+                        <input type="number" class="form-control" name="price" id="price"
+                            placeholder="Enter Product Price" [ngClass]="{ 'is-invalid': submitted && f.price.errors }"
+                            formControlName="price">
+                        <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+                            <div *ngIf="f.price.errors.required"> price is required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Product Description</label>
+                        <textarea [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
+                            formControlName="description" class="form-control" id="description" rows="3"></textarea>
+                        <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                            <div *ngIf="f.description.errors.required"> description is required</div>
+                        </div>
+                    </div>
+                    <div class="my-3">
+                        <button [disabled]="submitting" class="btn btn-primary">
+                            <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+                            Save
+                        </button>
+                        <a routerLink="/admin/products" class="btn btn-link">Cancel</a>
+                    </div>
+                
             </div>
         </div>
-
-        <div class="form-group">
-            <label for="description">Product Description</label>
-            <textarea [ngClass]="{ 'is-invalid': submitted && f.description.errors }" formControlName="description"
-                class="form-control" id="description" rows="3"></textarea>
-            <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
-                <div *ngIf="f.description.errors.required"> description is required</div>
-            </div>
-        </div>
-
-        
     </div>
-    
-    <div class="mb-3">
-        <button [disabled]="submitting" class="btn btn-primary">
-            <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
-            Save
-        </button>
-        <a routerLink="/admin/products" class="btn btn-link">Cancel</a>
+    <div class="col" *ngIf="id">
+        
+            <div class="card ">
+                <div class="card-header">Varient Detail</div>
+                <div class="card-body p-3">
+
+                    <div class="row" formGroupName="variants">
+                        <div class="col-md-3" >
+                            <div class="form-group" >
+                                <label for="color">Choose Color</label>
+                                <input type="color" class="form-control" style="height: 36px;" name="color" id="color"
+                                    placeholder="Enter Variant Name"
+                                    formControlName="color">
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-3" formGroupName="variants" >
+                            <div class="form-group" formGroupName="skus">
+                                <label for="size">Select Sizes</label>
+                                <select class="form-select" name="size" id="size" placeholder="Enter Variant size"
+                                     formControlName="size">
+                                    <option *ngFor="let cat of sizes" [value]="cat">{{cat}}</option>
+                                </select>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-3" formGroupName="variants">
+                            <div class="form-group" formGroupName="skus">
+                                <label for="quantity">Quantity</label>
+                                <select class="form-select" name="quantity" id="quantity"
+                                    placeholder="Enter Variant quantity"
+                                    
+                                    formControlName="quantity">
+                                    <option *ngFor="let cat of [].constructor(100); let i = index" [value]="i">{{i}}
+                                    </option>
+                                </select>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button (click)="addVariant()" type="button" class="btn btn-primary mt-4" style="float:right">
+                                <!-- <span  class="spinner-border spinner-border-sm me-1"></span> -->
+                                Add Variant
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+       
+
+        <div class="card mt-4">
+            <div class="card-header">Available Variants</div>
+
+            <table class="table ">
+                <thead>
+                    <tr>
+                        <th style="width:5%"></th>
+                        <th style="width:10%">Color</th>
+                        <th style="width:35%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let variant of product?.variants; let i = index">
+                        <th class="align-top">{{i + 1}}</th>
+                        <th class="align-top" [style]="{'background':variant.color, 'text-shadow': '1px 20px white'}">
+                            {{variant.color}}
+                        </th>
+                        <td class="align-middle">
+                            <table class="table table-striped">
+                                <!-- <thead>
+                                    <tr>
+                                        <th style="width:20%">Sizes</th>
+                                        <th style="width:20%">Quantity</th>
+                                        <th style="width:60%; float:right; text-align: right;">Action</th>
+                                    </tr>
+                                </thead> -->
+                                <tbody>
+                                    <tr *ngFor="let sku of variant.skus; let j = index">
+                                        <td style="width:20%">{{sku.size}}</td>
+                                        <td style="width:20%">{{sku.quantity}}</td>
+                                        <td style="width:60%">
+                                            <button class="btn btn-outline-danger me-1" style="float:right">
+                                                Delete
+                                            </button>
+                                            <button class="btn btn-outline-primary me-1" style="float:right">
+                                                Edit
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <!-- <td class="align-middle">{{variant.name}}</td>
+                            <td class="align-middle">{{variant.price}}</td>
+                            <td class="align-middle">{{this.get_keys(variant.category).reverse() }}</td>
+                            <td style="white-space: nowrap">
+                                <a routerLink="edit/{{variant.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
+                                <button (click)="deleteProduct(variant.id)"
+                                    class="btn btn-sm btn-danger btn-delete-variant" [disabled]="variant.isDeleting">
+                                    <span *ngIf="variant.isDeleting" class="spinner-border spinner-border-sm"></span>
+                                    <span *ngIf="!variant.isDeleting">Delete</span>
+                                </button>
+                            </td> -->
+                    </tr>
+                    <!-- <tr >
+                        <td colspan="4" class="text-center">
+                            <span class="spinner-border spinner-border-lg align-center"></span>
+                        </td>
+                    </tr> -->
+                </tbody>
+            </table>
+
+        </div>
+
+        <div *ngIf="loading" class="text-center m-5">
+            <span class="spinner-border spinner-border-lg align-center"></span>
+        </div>
     </div>
-</form>
-<div *ngIf="loading" class="text-center m-5">
-    <span class="spinner-border spinner-border-lg align-center"></span>
 </div>
+</form>

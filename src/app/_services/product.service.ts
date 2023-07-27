@@ -42,6 +42,7 @@ export class ProductService {
     
 
     update(id: string, params: any) {
+        console.log(params)
         return this.http.put(`${baseUrl}/${id}`, params)
             .pipe(map((product: any) => {
                 // update the current product if it was updated
