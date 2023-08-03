@@ -1,1 +1,21 @@
-﻿Dummy Form
+﻿<form [formGroup]="skillsForm " (ngSubmit)="onSubmit()">
+    <label for="name">Name </label>
+    <input type="text" id="name" name="name" formControlName="name">
+    Skills:
+    <div formArrayName="skills">
+        <div *ngFor="let skill of skills.controls; let i=index">
+            <div [formGroupName]="i">
+                {{i}}
+                skill name :
+                <input type="text" formControlName="skill">
+                exp:
+                <input type="text" formControlName="exp">
+
+                <button (click)="removeSkill(i)">Remove</button>
+            </div>
+        </div>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+<button type="button" (click)="addSkills()">Add</button>
+{{this.skillsForm.value | json}}

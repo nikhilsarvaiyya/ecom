@@ -31,7 +31,6 @@ export class CategoryService {
     }
 
     getAllByType(data:any) {
-        console.log(data)
         return this.http.get<Category[]>(`${baseUrl}/${data.type}/${data.pattern}`);
     }
     

@@ -24,6 +24,7 @@ import { HomeComponent } from './pages/home';
 import { HeaderComponent } from './layout/header/header.component';
 import { AvatarComponent } from './_components/avatar/avatar.component';
 import { FooterComponent } from './layout/footer/footer.component';
+import { FormGroupPipe } from './_pipe/form-group.pipe';
 
 //-----------------------------------------------------------------------------------------------
 
@@ -46,6 +47,7 @@ import { FooterComponent } from './layout/footer/footer.component';
         AvatarComponent,
         UniqueWordFromArrayPipe,
         FooterComponent,
+        FormGroupPipe,
         //TreeComponent
     ],
     providers: [

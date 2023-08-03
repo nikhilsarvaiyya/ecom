@@ -8,6 +8,7 @@ import { AddEditComponent } from './add-edit.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
 import { TreeComponent } from '@app/_components';
+import { FormGroupPipe } from '@app/_pipe/form-group.pipe';
 
 @NgModule({
   imports: [
@@ -16,11 +17,13 @@ import { TreeComponent } from '@app/_components';
     CategoryRoutingModule,
     MatInputModule,
     MatAutocompleteModule,
+    
 ],
 declarations: [
     ListComponent,
     AddEditComponent,
-    TreeComponent
+    TreeComponent,
+    FormGroupPipe
     
 ],
 schemas: [
